@@ -62,6 +62,13 @@ and deviation is +- 3.044 days == 263001.6 seconds
 
 """
 
+JD2000 = 2451545.0  # 12:00 UT on January 1, 2000
+SEC_IN_1_DAY = 86400
+
+MED_EPS = 0.409092804222328
+MIN_EPS = 0.38571776469074687
+MAX_EPS = 0.4276056667386107
+
 
 planetsNumbers = {
     1: "mercury",  # 7,01° (относительно эклиптики)
