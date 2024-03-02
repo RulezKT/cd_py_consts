@@ -10,6 +10,8 @@ NEPTUNE = 8
 PLUTO = 9
 SUN = 10
 MOON = 11
+NORTH_NODE = 12
+SOUTH_NODE = 13
 
 # Earth Barycenter (3) -> Moon (301)
 MOONtoEARTH = 301
