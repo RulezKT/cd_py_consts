@@ -1,21 +1,60 @@
-SSB = 0
-MERCURY = 1
-VENUS = 2
-EARTH = 3
-MARS = 4
-JUPITER = 5
-SATURN = 6
-URANUS = 7
-NEPTUNE = 8
-PLUTO = 9
-SUN = 10
-MOON = 11
-NORTH_NODE = 12
-SOUTH_NODE = 13
+# =================================================================================================#
+# Constants for working with de440s file ,
+# and converting ephemerides to HD , FD , Astro and Numerology info
+# =================================================================================================#
+
+PATHTODIR: str = "files/"
+FILENAME: str = "de440s.bsp"
+FILENAME_NODES: str = "nodes.json"
+EXPECTEDSHA512: str = "a244335d9eddc1e4fd2f3f8ddabf360020f650bc8fca2c4e7e0f66018db7fd2691dd63f52e3652653e096d97ad74cd48c10b4587a4d5a9bb68dbae5cecf06449"
+FILELENGTH: int = 32726016
+SIZEOFREC: int = 1024
+SEGMENT_START_TIME = -4734072000  # de440s.bsp
+SEGMENT_LAST_TIME = 4735368000  # de440s.bsp
+TOTAL_SUMMARIES_NUMBER: int = 14  # de440s.bsp
+
+AU = 0.1495978707e9  # km 149597870.7
+
+SEC_IN_1_DAY: int = 86400
+
+MED_EPS: float = 0.4090928042223289
+MIN_EPS = 0.38571776469074687
+MAX_EPS = 0.4276056667386107
+
+
+SSB: int = 0
+MERCURY: int = 1
+VENUS: int = 2
+EARTH: int = 3
+MARS: int = 4
+JUPITER: int = 5
+SATURN: int = 6
+URANUS: int = 7
+NEPTUNE: int = 8
+PLUTO: int = 9
+SUN: int = 10
+MOON: int = 11
+NORTHNODE: int = 12
+SOUTHNODE: int = 13
+HIRON: int = 14
+
+HEAD: int = 0
+AJNA: int = 1
+THROAT: int = 2
+G: int = 3
+SACRAL: int = 4
+ROOT: int = 5
+EGO: int = 6
+SPLEEN: int = 7
+EMO: int = 8
+
+NUMBEROFGATES: int = 65  # from 1 to 64
+NUMBEROFCHANNELS: int = 37  # from 1 to 36
+NUMBEROFPLANETS: int = 14
+NUMBEROFCENTERS: int = 9
 
 # Earth Barycenter (3) -> Moon (301)
 MOONtoEARTH = 301
-
 EARTH_NOT_BARYCENTER = 399
 MERCURY_NOT_BARYCENTER = 199
 VENUS_NOT_BARYCENTER = 299
@@ -25,27 +64,22 @@ degrees = radians*(180/pi)
 radians = degrees*(pi/180)
 """
 
-
+SEC_TO_RAD: float = 4.8481368110953599359e-6
 # 1 Radians is equal to Degrees : 57.29577951308232 = 180/math.pi
 DEGREE_RATIO = 57.29577951308232
-
+RAD_TO_DEG: float = 5.7295779513082320877e1
 # 1 Radians is equal to Arcseconds : 206264.80624709636 = 180*3600/pi
 RAD_PER_ARCSECONDS = 4.8481368110953599359e-6  # STR radians per arc second
 
-JD2000 = 2451545
+JD2000 = 2451545.0  # 12:00 UT on January 1, 2000
 JD1950 = 2433282.5
 
 PI = 3.14159265358979324
-AU = 0.1495978707e9  # km 149597870.7
-
-
 # 1 Degrees is equal to Radians : 0.017453292519943295
 RAD_RATIO = 0.017453292519943295
 
-
 # 88 градусов = 1.535889741755
 RAD_88_DEGREES = 1.53588974175500991848
-
 
 # Солнце проходит за день 1 градус, берем для верности 1.3
 # за 1 секунду Солнце проходит 0.000015046296296296297 градусов или 0.0000002626074106009986440 радиана
@@ -64,53 +98,12 @@ and deviation is +- 3.044 days == 263001.6 seconds
 
 """
 
-JD2000 = 2451545.0  # 12:00 UT on January 1, 2000
-SEC_IN_1_DAY = 86400
-
-MED_EPS = 0.409092804222328
-MIN_EPS = 0.38571776469074687
-MAX_EPS = 0.4276056667386107
-
-
-planetsNumbers = {
-    1: "mercury",  # 7,01° (относительно эклиптики)
-    2: "venus",  # 3,39458° (относительно эклиптики)
-    3: "earth",
-    4: "mars",  # 1,85061° (относительно эклиптики)
-    5: "jupiter",  # 1,304° (относительно эклиптики)
-    6: "saturn",  # 2,485 240° (относительно эклиптики)
-    7: "uranus",  # 0,772556° (относительно эклиптики)
-    8: "neptune",  # 1,767975° (относительно эклиптики)
-    9: "pluto",  # 17°,14 (относительно эклиптики)
-    10: "sun",
-    11: "moon",  # 5,14° (относительно эклиптики)
-    12: "north_node",
-    13: "south_node",
-    14: "hiron",
-}
-
-# zodiac names from 0 to 11
-zodiacNames = [
-    "Aries",
-    "Taurus",
-    "Gemini",
-    "Cancer",
-    "Leo",
-    "Virgo",
-    "Libra",
-    "Scorpio",
-    "Sagittarius",
-    "Capricorn",
-    "Aquarius",
-    "Pisces",
-]
-
 
 # 359 deg converted to radians
-# const _359_DEG_IN_RAD = 6.26574;
+# const _359_DEG_IN_RAD = 6.26574
 
 # размер одной гексаграммы в десятичных градусах
-# const one_hex_in_dec = 5.625;
+# const one_hex_in_dec = 5.625
 
 # размер одной линии в десятичных градусах
 oneLineInDec = 0.9375
@@ -192,6 +185,39 @@ hexSortByDeg = [
     [25, [358.25, 3.875]],
 ]
 
+planetsNumbers = {
+    1: "mercury",  # 7,01° (относительно эклиптики)
+    2: "venus",  # 3,39458° (относительно эклиптики)
+    3: "earth",
+    4: "mars",  # 1,85061° (относительно эклиптики)
+    5: "jupiter",  # 1,304° (относительно эклиптики)
+    6: "saturn",  # 2,485 240° (относительно эклиптики)
+    7: "uranus",  # 0,772556° (относительно эклиптики)
+    8: "neptune",  # 1,767975° (относительно эклиптики)
+    9: "pluto",  # 17°,14 (относительно эклиптики)
+    10: "sun",
+    11: "moon",  # 5,14° (относительно эклиптики)
+    12: "north_node",
+    13: "south_node",
+    14: "hiron",
+}
+
+# zodiac names from 0 to 11
+zodiacNames = [
+    "Aries",
+    "Taurus",
+    "Gemini",
+    "Cancer",
+    "Leo",
+    "Virgo",
+    "Libra",
+    "Scorpio",
+    "Sagittarius",
+    "Capricorn",
+    "Aquarius",
+    "Pisces",
+]
+
 
 # для каждого знака зодиака определяется сила планеты
 # поиск идет от 6 к 0, берется первое найденное
@@ -199,14 +225,14 @@ hexSortByDeg = [
 
 """	
    сила идет по порядку массива
-  // [0,1,2,3,4,5,6]
-  // 6 - обитель
-  // 5 - экзальтация
-  // 4 - родство, дружба
-  // 3 - нейтрально
-  // 2 - вражда
-  // 1 - падение
-  // 0 - изгнание
+  # [0,1,2,3,4,5,6]
+  # 6 - обитель
+  # 5 - экзальтация
+  # 4 - родство, дружба
+  # 3 - нейтрально
+  # 2 - вражда
+  # 1 - падение
+  # 0 - изгнание
 """
 planetsPower = [
     [
@@ -332,8 +358,8 @@ planetsPower = [
 ]
 
 """
-// массив с названиями планет в том порядке, в котором они находятся в файле de430.bsp
-// +после 11 номера идут дополнительные планеты
+# массив с названиями планет в том порядке, в котором они находятся в файле de430.bsp
+# +после 11 номера идут дополнительные планеты
 """
 planetsArr = [
     "ssb",
@@ -383,3 +409,10 @@ File type DAF/SPK and format LTL-IEEE with 14 segments:
 2396752.50..2506352.50  Type 2  Mercury Barycenter (1) -> Mercury (199)
 2396752.50..2506352.50  Type 2  Venus Barycenter (2) -> Venus (299)
 """
+
+
+# Year, Seconds
+type DeltaTTableStructure = tuple[int, float]
+
+# [-4733494022,"north"],[-4732252235,"south"]
+type NodesJsonStruct = tuple[int, str]
