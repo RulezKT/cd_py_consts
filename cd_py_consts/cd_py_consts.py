@@ -2,26 +2,9 @@
 # Constants for working with de440s file ,
 # and converting ephemerides to HD , FD , Astro and Numerology info
 # =================================================================================================#
-
-PATHTODIR: str = "files/"
-FILENAME: str = "de440s.bsp"
-FILENAME_NODES: str = "nodes.json"
-EXPECTEDSHA512: str = (
-    "a244335d9eddc1e4fd2f3f8ddabf360020f650bc8fca2c4e7e0f66018db7fd2691dd63f52e3652653e096d97ad74cd48c10b4587a4d5a9bb68dbae5cecf06449"
-)
-FILELENGTH: int = 32726016
-SIZEOFREC: int = 1024
-SEGMENT_START_TIME = -4734072000  # de440s.bsp
-SEGMENT_LAST_TIME = 4735368000  # de440s.bsp
-TOTAL_SUMMARIES_NUMBER: int = 14  # de440s.bsp
-
 AU = 0.1495978707e9  # km 149597870.7
 
 SEC_IN_1_DAY: int = 86400
-
-MED_EPS: float = 0.4090928042223289
-MIN_EPS = 0.38571776469074687
-MAX_EPS = 0.4276056667386107
 
 
 SSB: int = 0
@@ -76,23 +59,21 @@ RAD_PER_ARCSECONDS: float = 4.8481368110953599359e-6  # STR radians per arc seco
 JD2000: float = 2451545.0  # 12:00 UT on January 1, 2000
 JD1950: float = 2433282.5
 
-PI: float = 3.14159265358979324
 # 1 Degrees is equal to Radians : 0.017453292519943295
 RAD_RATIO: float = 0.017453292519943295
 
 # 88 градусов = 1.535889741755
 RAD_88_DEGREES: float = 1.53588974175500991848
 
-# Солнце проходит за день 1 градус, берем для верности 1.3
-# за 1 секунду Солнце проходит 0.000015046296296296297 градусов или 0.0000002626074106009986440 радиана
+# med speed of sun is around 1 degree in a day, we'll take 1.3
+# in 1 second it is  0.000015046296296296297 гof degree
+# or 0.0000002626074106009986440 RAD
 # (1.535889741755/7689600).toFixed(20) =  0.00000019973597349082
 MED_SUN_PATH_IN_1_SEC: float = 0.000000199
 
-# время, за которое Солнце проходит 88 градусов
-# 7_718_038.91 секунд
+# time for the sun to go through 88 degrees
+# 7_718_038.91 seconds
 SEC_FOR_88_DEGREES_SUN: float = RAD_88_DEGREES / MED_SUN_PATH_IN_1_SEC
-
-
 """	
 according to tests
 7_714_285.72 sec = 88 degrees
@@ -100,23 +81,22 @@ and deviation is +- 3.044 days == 263001.6 seconds
 
 """
 
-
 # 359 deg converted to radians
 # const _359_DEG_IN_RAD = 6.26574
 
-# размер одной гексаграммы в десятичных градусах
-# const one_hex_in_dec = 5.625
+# size of 1 hex in degrees
+one_hex_in_dec: float = 5.625
 
-# размер одной линии в десятичных градусах
+# line
 oneLineInDec: float = 0.9375
 
-# размер одного цвета в десятичных градусах
+# color
 oneColorInDec: float = 0.15625
 
-# размер одного тона в десятичных градусах
+# tone
 oneToneInDec: float = 0.026041666666666668
 
-# размер одной базы в десятичных градусах
+# base
 oneBaseInDec: float = 0.005208333333333334
 
 hexSortByDeg: tuple[int, tuple[float, float]] = (
@@ -188,28 +168,24 @@ hexSortByDeg: tuple[int, tuple[float, float]] = (
 )
 
 planetsNumbers: dict[int, str] = {
-    1: "mercury",  # 7,01° (относительно эклиптики)
-    2: "venus",  # 3,39458° (относительно эклиптики)
+    1: "mercury",  # 7,01° to ecliptic
+    2: "venus",  # 3,39458°
     3: "earth",
-    4: "mars",  # 1,85061° (относительно эклиптики)
-    5: "jupiter",  # 1,304° (относительно эклиптики)
-    6: "saturn",  # 2,485 240° (относительно эклиптики)
-    7: "uranus",  # 0,772556° (относительно эклиптики)
-    8: "neptune",  # 1,767975° (относительно эклиптики)
-    9: "pluto",  # 17°,14 (относительно эклиптики)
+    4: "mars",  # 1,85061°
+    5: "jupiter",  # 1,304°
+    6: "saturn",  # 2,485 240°
+    7: "uranus",  # 0,772556°
+    8: "neptune",  # 1,767975°
+    9: "pluto",  # 17°,14
     10: "sun",
-    11: "moon",  # 5,14° (относительно эклиптики)
+    11: "moon",  # 5,14°
     12: "north_node",
     13: "south_node",
     14: "hiron",
 }
 
 
-"""
-# массив с названиями планет в том порядке, в котором они находятся в файле de430.bsp
-# +после 11 номера идут дополнительные планеты
-"""
-planetsArr: tuple[str] = (
+pl_names: tuple[str] = (
     "ssb",
     "mercury",
     "venus",
@@ -244,20 +220,17 @@ zodiacNames: tuple[str] = (
 )
 
 
-# для каждого знака зодиака определяется сила планеты
-# поиск идет от 6 к 0, берется первое найденное
-
-
+# planets power acoording to zodiac
+# from 6 to 0, first match is taken
 """	
-   сила идет по порядку массива
   # [0,1,2,3,4,5,6]
-  # 6 - обитель
-  # 5 - экзальтация
-  # 4 - родство, дружба
-  # 3 - нейтрально
-  # 2 - вражда
-  # 1 - падение
-  # 0 - изгнание
+  # 6 - tenement
+  # 5 - exaltation
+  # 4 - kinship, friendship
+  # 3 - neutral
+  # 2 - enmity
+  # 1 - fall
+  # 0 - exile
 """
 planetsPower: tuple[tuple[tuple[str]]] = (
     (
@@ -381,34 +354,3 @@ planetsPower: tuple[tuple[tuple[str]]] = (
         ("jupiter", "neptune"),
     ),
 )
-
-
-DE440s = {
-    "path": "..\\..\\files\\de440s.bsp",
-    "MIN_DATA": -4734072000.0,
-    "MAX_DATA": 4735368000.0,
-    "RECLEN": 1024,
-}
-
-
-Nodes_file = {
-    "path": "..\\..\\files\\nodes_file.json",
-}
-
-"""
-File type DAF/SPK and format LTL-IEEE with 14 segments:
-2396752.50..2506352.50  Type 2  Solar System Barycenter (0) -> Mercury Barycenter (1)
-2396752.50..2506352.50  Type 2  Solar System Barycenter (0) -> Venus Barycenter (2)
-2396752.50..2506352.50  Type 2  Solar System Barycenter (0) -> Earth Barycenter (3)
-2396752.50..2506352.50  Type 2  Solar System Barycenter (0) -> Mars Barycenter (4)
-2396752.50..2506352.50  Type 2  Solar System Barycenter (0) -> Jupiter Barycenter (5)
-2396752.50..2506352.50  Type 2  Solar System Barycenter (0) -> Saturn Barycenter (6)
-2396752.50..2506352.50  Type 2  Solar System Barycenter (0) -> Uranus Barycenter (7)
-2396752.50..2506352.50  Type 2  Solar System Barycenter (0) -> Neptune Barycenter (8)
-2396752.50..2506352.50  Type 2  Solar System Barycenter (0) -> Pluto Barycenter (9)
-2396752.50..2506352.50  Type 2  Solar System Barycenter (0) -> Sun (10)
-2396752.50..2506352.50  Type 2  Earth Barycenter (3) -> Moon (301)
-2396752.50..2506352.50  Type 2  Earth Barycenter (3) -> Earth (399)
-2396752.50..2506352.50  Type 2  Mercury Barycenter (1) -> Mercury (199)
-2396752.50..2506352.50  Type 2  Venus Barycenter (2) -> Venus (299)
-"""
