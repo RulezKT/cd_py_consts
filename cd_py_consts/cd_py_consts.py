@@ -203,8 +203,9 @@ pl_names: tuple[str] = (
     "hiron",
 )
 
-# zodiac names from 0 to 11
+# zodiac names from 0 to 12
 zodiacNames: tuple[str] = (
+    "",
     "Aries",
     "Taurus",
     "Gemini",
