@@ -21,7 +21,8 @@ SUN: int = 10
 MOON: int = 11
 NORTHNODE: int = 12
 SOUTHNODE: int = 13
-HIRON: int = 14
+CERES int = 14
+HIRON: int = 15
 
 HEAD: int = 0
 AJNA: int = 1
@@ -41,6 +42,7 @@ NUMBEROFCENTERS: int = 9
 # Earth Barycenter (3) -> Moon (301)
 MOONtoEARTH: int = 301
 EARTH_NOT_BARYCENTER: int = 399
+EARTH_CODE: int = 399
 MERCURY_NOT_BARYCENTER: int = 199
 VENUS_NOT_BARYCENTER: int = 299
 
