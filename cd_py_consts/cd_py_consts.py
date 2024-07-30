@@ -21,7 +21,7 @@ SUN: int = 10
 MOON: int = 11
 NORTHNODE: int = 12
 SOUTHNODE: int = 13
-CERES int = 14
+CERES: int = 14
 HIRON: int = 15
 
 HEAD: int = 0
