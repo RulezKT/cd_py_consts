@@ -202,6 +202,7 @@ pl_names: tuple[str] = (
     "moon",
     "north_node",
     "south_node",
+    "ceres",
     "hiron",
 )
 
