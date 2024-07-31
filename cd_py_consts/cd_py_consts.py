@@ -22,7 +22,7 @@ MOON: int = 11
 NORTHNODE: int = 12
 SOUTHNODE: int = 13
 CERES: int = 14
-HIRON: int = 15
+CHIRON: int = 15
 
 HEAD: int = 0
 AJNA: int = 1
@@ -183,7 +183,8 @@ planetsNumbers: dict[int, str] = {
     11: "moon",  # 5,14°
     12: "north_node",
     13: "south_node",
-    14: "hiron",
+    14: "ceres",
+    15: "chiron",
 }
 
 
@@ -203,7 +204,7 @@ pl_names: tuple[str] = (
     "north_node",
     "south_node",
     "ceres",
-    "hiron",
+    "chiron",
 )
 
 # zodiac names from 0 to 12
@@ -260,7 +261,7 @@ planetsPower: tuple[tuple[tuple[str]]] = (
     # Gemini
     (
         ("jupiter", "neptune"),
-        ("hiron",),
+        ("chiron",),
         ("sun", "mars", "pluto"),
         ("moon",),
         ("venus", "saturn", "uranus"),
@@ -324,7 +325,7 @@ planetsPower: tuple[tuple[tuple[str]]] = (
         ("saturn", "uranus", "venus"),
         ("moon",),
         ("mars", "pluto", "sun"),
-        ("hiron",),
+        ("chiron",),
         ("jupiter", "neptune"),
     ),
     # Capricorn
