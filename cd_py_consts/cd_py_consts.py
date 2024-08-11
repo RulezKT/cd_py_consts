@@ -12,7 +12,7 @@ MERCURY: int = 1
 VENUS: int = 2
 EARTH: int = 3
 MARS: int = 4
-JUPITER: int = 5
+JUPYTER: int = 5
 SATURN: int = 6
 URANUS: int = 7
 NEPTUNE: int = 8
@@ -174,7 +174,7 @@ planetsNumbers: dict[int, str] = {
     2: "venus",  # 3,39458°
     3: "earth",
     4: "mars",  # 1,85061°
-    5: "jupiter",  # 1,304°
+    5: "jupyter",  # 1,304°
     6: "saturn",  # 2,485 240°
     7: "uranus",  # 0,772556°
     8: "neptune",  # 1,767975°
@@ -194,7 +194,7 @@ pl_names: tuple[str] = (
     "venus",
     "earth",
     "mars",
-    "jupiter",
+    "jupyter",
     "saturn",
     "uranus",
     "neptune",
@@ -244,7 +244,7 @@ planetsPower: tuple[tuple[tuple[str]]] = (
         ("saturn",),
         ("mercury", "uranus"),
         ("moon",),
-        ("jupiter", "neptune"),
+        ("jupyter", "neptune"),
         ("sun",),
         ("mars", "pluto"),
     ),
@@ -252,7 +252,7 @@ planetsPower: tuple[tuple[tuple[str]]] = (
     (
         ("mars", "pluto"),
         ("uranus",),
-        ("jupiter", "neptune"),
+        ("jupyter", "neptune"),
         ("sun",),
         ("mercury", "saturn"),
         ("moon",),
@@ -260,7 +260,7 @@ planetsPower: tuple[tuple[tuple[str]]] = (
     ),
     # Gemini
     (
-        ("jupiter", "neptune"),
+        ("jupyter", "neptune"),
         ("chiron",),
         ("sun", "mars", "pluto"),
         ("moon",),
@@ -275,7 +275,7 @@ planetsPower: tuple[tuple[tuple[str]]] = (
         ("mercury", "venus"),
         ("sun",),
         ("neptune", "pluto"),
-        ("jupiter",),
+        ("jupyter",),
         ("moon",),
     ),
     # Leo
@@ -284,13 +284,13 @@ planetsPower: tuple[tuple[tuple[str]]] = (
         ("neptune",),
         ("mercury", "venus"),
         ("moon",),
-        ("jupiter", "mars"),
+        ("jupyter", "mars"),
         ("pluto",),
         ("sun",),
     ),
     # Virgo
     (
-        ("jupiter", "neptune"),
+        ("jupyter", "neptune"),
         ("venus",),
         ("mars", "pluto", "moon"),
         ("sun",),
@@ -302,7 +302,7 @@ planetsPower: tuple[tuple[tuple[str]]] = (
     (
         ("mars", "pluto"),
         ("sun",),
-        ("jupiter", "neptune"),
+        ("jupyter", "neptune"),
         ("moon",),
         ("mercury", "uranus"),
         ("saturn",),
@@ -314,7 +314,7 @@ planetsPower: tuple[tuple[tuple[str]]] = (
         ("moon",),
         ("mercury", "saturn"),
         ("sun",),
-        ("jupiter", "neptune"),
+        ("jupyter", "neptune"),
         ("uranus",),
         ("mars", "pluto"),
     ),
@@ -326,12 +326,12 @@ planetsPower: tuple[tuple[tuple[str]]] = (
         ("moon",),
         ("mars", "pluto", "sun"),
         ("chiron",),
-        ("jupiter", "neptune"),
+        ("jupyter", "neptune"),
     ),
     # Capricorn
     (
         ("moon",),
-        ("jupiter",),
+        ("jupyter",),
         ("neptune", "pluto"),
         ("sun",),
         ("mercury", "venus"),
@@ -342,7 +342,7 @@ planetsPower: tuple[tuple[tuple[str]]] = (
     (
         ("sun",),
         ("pluto",),
-        ("jupiter", "mars"),
+        ("jupyter", "mars"),
         ("moon",),
         ("mercury", "venus"),
         ("neptune",),
@@ -356,6 +356,6 @@ planetsPower: tuple[tuple[tuple[str]]] = (
         ("sun",),
         ("mars", "pluto", "moon"),
         ("venus",),
-        ("jupiter", "neptune"),
+        ("jupyter", "neptune"),
     ),
 )
